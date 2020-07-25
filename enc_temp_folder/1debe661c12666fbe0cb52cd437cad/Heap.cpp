@@ -51,11 +51,9 @@ int main(void)
             }
         }
     }
-
     for (int i = 0; i <= length; i++)                          //Выводим результат на консоль
         printf("%c", textPtr[i]);
     printf(" \n");
-
     free(textPtr);
     return 0;
 }

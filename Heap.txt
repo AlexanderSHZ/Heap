@@ -1,9 +1,9 @@
-п»ї#include <string.h>
+#include <string.h>
 #include <iostream>
 #pragma warning(disable : 4996)
 
-char* InpText(char* string);           //РџРѕР»СѓС‡Р°РµС‚ СЃС‚СЂРѕРєСѓ РѕС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ.
-double upper(int i, char* text);       //РџСЂРёРІРѕРґРёС‚ Рє РЅРёР¶РЅРµРјСѓ СЂРµРіРёСЃС‚СЂСѓ.
+char* InpText(char* string);           //Получает строку от пользователя.
+double upper(int i, char* text);       //Приводит к нижнему регистру.
 
 
 int main(void)
@@ -20,13 +20,13 @@ int main(void)
     textPtr = (char*)malloc(80);                 
     if (textPtr)
     {
-        sprintf(text, "%s", InpText(textPtr));      //РџРѕР»СѓС‡РµРЅРЅСѓСЋ СЃС‚СЂРѕРєСѓ РїРѕСЃРёРјРІРѕР»СЊРЅРѕ СЃРѕС…СЂР°РЅСЏРµРј РІ РјР°СЃСЃРёРІ.
-        length=strlen(text);                      //РџРѕР»СѓС‡Р°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРёРјРІРѕР»РѕРІ.
+        sprintf(text, "%s", InpText(textPtr));      //Полученную строку посимвольно сохраняем в массив.
+        length=strlen(text);                      //Получаем количество символов.
     }
 
     textPtr = textPtrAccessory;
 
-    textPtrAccessory = (char*)realloc(textPtrAccessory, sizeof(char) * (length + 1));    //РёР·РјРµРЅСЏРµРј СЂР°Р·РјРµСЂ РјР°СЃСЃРёРІР° РїРѕРґ РЅР°С€Сѓ СЃС‚СЂРѕРєСѓ.
+    textPtrAccessory = (char*)realloc(textPtrAccessory, sizeof(char) * (length + 1));    //изменяем размер массива под нашу строку.
     if (textPtrAccessory != NULL)
     {
         textPtr = textPtrAccessory;
@@ -38,7 +38,7 @@ int main(void)
 
     free(textPtrAccessory);
 
-    for (int i = 0; i < length; i++)                            //РџРѕСЃРёРјРІРѕР»СЊРЅРѕ СЃРѕСЂС‚РёСЂСѓРµРј СЃС‚СЂРѕРєСѓ.
+    for (int i = 0; i < length; i++)                            //Посимвольно сортируем строку.
     {
         for (int j = i + 1; j < length - 1; j++)
         {
@@ -52,14 +52,14 @@ int main(void)
         }
     }
 
-    for (int i = 0; i <= length; i++)                          //Р’С‹РІРѕРґРёРј СЂРµР·СѓР»СЊС‚Р°С‚ РЅР° РєРѕРЅСЃРѕР»СЊ
+    for (int i = 0; i <= length; i++)                          //Выводим результат на консоль
         printf("%c", textPtr[i]);
     printf(" \n");
 
     free(textPtr);
     return 0;
 }
-double upper(int i, char* text)   //РџСЂРёРІРµРґРµРЅРёРµ Рє РЅРёР¶РЅРµРјСѓ СЂРµРіРёСЃС‚СЂСѓ.
+double upper(int i, char* text)   //Приведение к нижнему регистру.
 {
     double a;
 
@@ -74,7 +74,7 @@ double upper(int i, char* text)   //РџСЂРёРІРµРґРµРЅРёРµ Рє РЅРёР¶РЅРµРјСѓ СЂРµР
     return a;
 }
 
-char* InpText(char* string)       //РџРѕР»СѓС‡РµРЅРёРµ СѓРєР°Р·Р°С‚РµР»СЏ РЅР° СЃС‚СЂРѕРєСѓ РёР· РєРѕРЅСЃРѕР»Рё, РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ СЃС‚СЂРѕРєРё Р·Р°РґР°С‘С‚СЃСЏ.
+char* InpText(char* string)       //Получение указателя на строку из консоли, максимальный размер строки задаётся.
 {
 
     int ch;
