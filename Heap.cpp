@@ -9,22 +9,20 @@ int main(void)
 {
     char* textPtrAccessory = NULL;
     char* textPtr = NULL;
-    int count = 0;
-    int n = 10;
+    int count = 1, n=0;
+    int available = 10;
     char ch = 0;
     
     fflush(stdout);
 
-    textPtr = (char*)malloc(sizeof(char) * n);
+    textPtr = (char*)malloc(sizeof(char) * available);
 
     while (((ch = getchar()) != '\n') && (ch != EOF))       //Получение указателя на строку из консоли.
     {
-        textPtr[count] = ch;
-        count++;
-
-        if (count > n - 2)
+        if (n == available - 2)
         {
-            textPtrAccessory = (char*)realloc(textPtrAccessory, sizeof(char) * (count+n));
+            available *= 2;
+            textPtrAccessory = (char*)realloc(textPtrAccessory, sizeof(char) * available);
             if (textPtrAccessory != NULL)
             {
                 textPtr = textPtrAccessory;
@@ -34,10 +32,13 @@ int main(void)
                 printf("Program operation failed! \n");
             }
         }
-        
+        textPtr[n] = ch;
+        n++;
+        count++;
+        textPtr[n] = '\0';
     }
 
-    textPtrAccessory = (char*)realloc(textPtrAccessory, sizeof(char) * (count+1));
+    textPtrAccessory = (char*)realloc(textPtrAccessory, sizeof(char) * (count));
     if (textPtrAccessory != NULL)
     {
         textPtr = textPtrAccessory;
