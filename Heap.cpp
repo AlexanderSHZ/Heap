@@ -19,7 +19,7 @@ int main(void)
 
     while (((ch = getchar()) != '\n') && (ch != EOF))       //Получение указателя на строку из консоли.
     {
-        if (n == available - 2)
+        if (n == available - 2)                             //По необходимости увеличиваем размер массива.
         {
             available *= 2;
             textPtrAccessory = (char*)realloc(textPtrAccessory, sizeof(char) * available);
@@ -38,7 +38,7 @@ int main(void)
         textPtr[n] = '\0';
     }
 
-    textPtrAccessory = (char*)realloc(textPtrAccessory, sizeof(char) * (count));
+    textPtrAccessory = (char*)realloc(textPtrAccessory, sizeof(char) * (count));   //Приводим массив к реальному размеру.
     if (textPtrAccessory != NULL)
     {
         textPtr = textPtrAccessory;
@@ -49,9 +49,9 @@ int main(void)
     }
     free(textPtrAccessory);
     
-    sort(count, textPtr);                    //Сортируем символы
+    sort(count, textPtr);                    //Сортируем символы.
                             
-    printf("%s", textPtr);                   //Выводим результат на консоль
+    printf("%s", textPtr);                   //Выводим отсортированную строку на консоль.
     printf(" \n");
 
     free(textPtr);
