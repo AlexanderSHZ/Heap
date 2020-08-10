@@ -9,8 +9,8 @@ int main(void)
 {
     char* textPtrAccessory = NULL;
     char* textPtr = NULL;
-    int count = 1, n=0;
-    int available = 10;
+    int n=0;
+    int available = 20;
     char ch = 0;
     
     fflush(stdout);
@@ -19,7 +19,7 @@ int main(void)
 
     while (((ch = getchar()) != '\n') && (ch != EOF))       //Получение указателя на строку из консоли.
     {
-        if (n == available - 2)                             //По необходимости увеличиваем размер массива.
+        if (available - n < 2)                             //По необходимости увеличиваем размер массива.
         {
             available *= 2;
             textPtrAccessory = (char*)realloc(textPtrAccessory, sizeof(char) * available);
@@ -34,11 +34,10 @@ int main(void)
         }
         textPtr[n] = ch;
         n++;
-        count++;
         textPtr[n] = '\0';
     }
 
-    textPtrAccessory = (char*)realloc(textPtrAccessory, sizeof(char) * (count));   //Приводим массив к реальному размеру.
+    textPtrAccessory = (char*)realloc(textPtrAccessory, sizeof(char) * (n+1));   //Приводим массив к реальному размеру.
     if (textPtrAccessory != NULL)
     {
         textPtr = textPtrAccessory;
@@ -49,7 +48,7 @@ int main(void)
     }
     free(textPtrAccessory);
     
-    sort(count, textPtr);                    //Сортируем символы.
+    sort(n, textPtr);                    //Сортируем символы.
                             
     printf("%s", textPtr);                   //Выводим отсортированную строку на консоль.
     printf(" \n");
@@ -76,9 +75,9 @@ char* sort(int n, char* textPtr)                     //Cортировка ма�
 {
     char tmp;
 
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n - 1; i++)
     {
-        for (int j = i + 1; j < n - 1; j++)
+        for (int j = i + 1; j < n ; j++)
         {
 
             if (upper(j, textPtr) < upper(i, textPtr))
