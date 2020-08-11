@@ -3,60 +3,84 @@
 
 char* sort(int n, char* textPtr);      //Посимвольно сортирует строку.
 double upper(int i, char* text);       //Приводит к нижнему регистру. Ф-ция для sort.
+struct DataText textFromUser(struct DataText dataText);
 
+
+struct DataText
+{
+    int quantity;
+    char* textPtr;
+};
 
 int main(void)
 {
+    DataText dataText;
+
+    dataText.textPtr = NULL;
+
+   
+   
+    dataText = textFromUser(dataText);
+
+  
+
+
+
+                         //Сортируем символы.
+                            
+    printf("%s", dataText.textPtr);                    //Выводим отсортированную строку на консоль.
+    printf("\n"); 
+
+ //sort(quantity, textPtr);   
+
+ printf("%s", dataText.textPtr);                    //Выводим отсортированную строку на консоль.
+ printf("\n");
+    free(dataText.textPtr);
+    return 0;
+}
+
+DataText textFromUser(DataText dataText)
+
+{
     char* textPtrAccessory = NULL;
-    char* textPtr = NULL;
-    int n=0;
-    int available = 20;
-    char ch = 0;
-    
+    int capacity = 1;
+    char ch;
+
     fflush(stdout);
 
-    textPtr = (char*)malloc(sizeof(char) * available);
+    dataText.textPtr = (char*)malloc(sizeof(char) * capacity);
 
     while (((ch = getchar()) != '\n') && (ch != EOF))       //Получение указателя на строку из консоли.
     {
-        if (available - n < 2)                             //По необходимости увеличиваем размер массива.
+        if (capacity - dataText.quantity < 2)                             //По необходимости увеличиваем размер массива.
         {
-            available *= 2;
-            textPtrAccessory = (char*)realloc(textPtrAccessory, sizeof(char) * available);
-            if (textPtrAccessory != NULL)
-            {
-                textPtr = textPtrAccessory;
-            }
-            else
+            capacity *= 2;
+            textPtrAccessory = dataText.textPtr;
+            dataText.textPtr = (char*)realloc(dataText.textPtr, sizeof(char) * capacity);
+            if (dataText.textPtr == NULL)
             {
                 printf("Program operation failed! \n");
+               
             }
         }
-        textPtr[n] = ch;
-        n++;
-        textPtr[n] = '\0';
+        dataText.textPtr[dataText.quantity] = ch;
+        dataText.quantity++;
     }
 
-    textPtrAccessory = (char*)realloc(textPtrAccessory, sizeof(char) * (n+1));   //Приводим массив к реальному размеру.
-    if (textPtrAccessory != NULL)
-    {
-        textPtr = textPtrAccessory;
-    }
-    else
+    textPtrAccessory = dataText.textPtr;
+    dataText.textPtr = (char*)realloc(dataText.textPtr, sizeof(char) * (dataText.quantity + 1)); //Приводим массив к реальному размеру.
+
+    if (dataText.textPtr == NULL)
     {
         printf("Program operation failed! \n");
+       
     }
-    free(textPtrAccessory);
-    
-    sort(n, textPtr);                    //Сортируем символы.
-                            
-    printf("%s", textPtr);                   //Выводим отсортированную строку на консоль.
-    printf(" \n");
 
-    free(textPtr);
-    return 0;
+    dataText.textPtr[dataText.quantity] = '\n';
+    return dataText;
 }
-double upper(int i, char* textPtr)   //Приведение к нижнему регистру.
+
+double upper(int i, char* textPtr)            //Приведение к нижнему регистру.
 {
     double a;
 
