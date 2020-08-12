@@ -3,12 +3,12 @@
 
 char* sort(int n, char* textPtr);      //Посимвольно сортирует строку.
 double upper(int i, char* text);       //Приводит к нижнему регистру. Ф-ция для sort.
-struct DataText textFromUser(struct DataText dataText);
+struct DataText textFromUser(struct DataText dataText);    //Структура количество символов/текст.
 
 
 struct DataText
 {
-    int quantity;
+    int quantity = 0;
     char* textPtr;
 };
 
@@ -26,12 +26,12 @@ int main(void)
 
 
 
-                         //Сортируем символы.
+                        
                             
-    printf("%s", dataText.textPtr);                    //Выводим отсортированную строку на консоль.
+    printf("%s", dataText.textPtr);                    //Выводим полученную строку на консоль.
     printf("\n"); 
 
- //sort(quantity, textPtr);   
+    sort(dataText.quantity, dataText.textPtr);         //Сортируем символы.
 
  printf("%s", dataText.textPtr);                    //Выводим отсортированную строку на консоль.
  printf("\n");
